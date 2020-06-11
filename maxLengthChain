@@ -1,0 +1,18 @@
+bool comp(struct val v1, struct val v2){
+      return v1.second<v2.second;
+}
+
+/*You are required to complete this method*/
+int maxChainLen(struct val p[],int n)
+{
+    std::sort(p,p+n,comp);
+    int count=1;
+    int d=p[0].second;
+    for(int i=1;i<n;++i){
+        if(p[i].first>d){
+            count++;
+            d = p[i].second;
+        }
+    }
+    return count;
+}
