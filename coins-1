@@ -1,0 +1,47 @@
+#include<iostream>
+#include<vector>
+
+void print(std::vector<int>v){
+  for(auto it:v)
+    std::cout<<it<<" ";
+    std::cout<<"\n";
+}
+
+int DP(int a[],int size,int n,std::vector<int>v,int count){
+    
+    if(n==0){
+        print(v);
+        return count;
+    }
+    
+    if(n<0){
+        return 0;
+    }
+    
+    if(n>=0 && size<0){
+        return 0;
+    }
+    
+    if(a[size]>n)
+    return DP(a,size-1,n,v,count+1)+1;
+    
+    v.push_back(a[size]);
+    int x = DP(a,size,n-a[size],v,count+1)+1;
+    
+    v.pop_back();
+    
+    int y = DP(a,size-1,n,v,count+1)+1;
+    
+    std::cout<<"\nmin: "<<std::min(x,y)<<" ";
+    
+    return std::min(x,y);
+   // return std::min(DP(a,size,n-a[size])+1, DP(a,size-1,n)+1);
+}
+
+int main(){
+    int a[]={1,10,15};
+    int n=14;
+    std::vector<int>v;
+    int c=0;
+    std::cout<<DP(a,2,n,v,c);
+}
