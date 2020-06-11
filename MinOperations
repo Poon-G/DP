@@ -1,0 +1,26 @@
+#include<iostream>
+
+int DP(int n,int k){
+    if(k>n)
+    return 0;
+    
+    if(k*2>n)
+    return DP(n,k+1)+1;
+    
+    return std::min(DP(n,k*2)+1,DP(n,k+1)+1);
+}
+
+int main()
+{
+	int T;
+	std::cin>>T;
+	while(T--){
+	    int n;
+	    std::cin>>n;
+	    
+	    int k=0;
+	    k +=1;
+	    
+	    std::cout<<DP(n,k)<<"\n";
+	}
+}
