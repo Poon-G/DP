@@ -1,0 +1,55 @@
+#include<iostream>
+#include<cstring>
+
+int min(int x,int y,int z){
+    return std::min(x,std::min(y,z));
+}
+
+// int DP(char s1[],char s2[],int m,int n){
+    
+//     if(m<0 || n<0)
+//     return 0;
+    
+//     if(s1[m-1]==s2[n-1])
+//     return DP(s1,s2,m-1,n-1);
+    
+//     else return min(DP(s1,s2,m-1,n)+1,DP(s1,s2,m,n-1)+1, 
+//                     DP(s1,s2,m-1,n-1)+1);
+// }
+
+int memo(char s1[],char s2[],int m,int n){
+    int table[m+1][n+1];
+    
+    for(int i=0;i<=m;++i){
+        for(int j=0;j<=n;++j){
+            if (i == 0) 
+                table[i][j] = j;
+  
+            else if (j == 0) 
+                table[i][j] = i; 
+                
+            else if(s1[i-1]==s2[j-1]){
+                table[i][j] = table[i-1][j-1];
+            }else{
+                table[i][j] = min(table[i-1][j]+1,table[i][j-1]+1, 
+                                table[i-1][j-1]+1);
+            }
+        }
+    }
+    return table[m][n];
+}
+
+int main()
+{
+	int T;
+	std::cin>>T;
+	while(T--){
+	    int m,n;
+	    std::cin>>m>>n;
+	    char s1[m],s2[n];
+	    std::cin>>s1>>s2;
+
+	  //  std::cout<<DP(s1,s2,m,n)<<"\n";
+	    std::cout<<memo(s1,s2,m,n)<<"\n";
+	}
+}
